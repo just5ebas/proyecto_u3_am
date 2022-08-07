@@ -21,6 +21,12 @@ public class FacturaServiceImpl implements IFacturaService {
 	}
 
 	@Override
+	public List<Factura> buscarFacturaInnerJoinDemanda(BigDecimal subtotal) {
+		// TODO Auto-generated method stub
+		return this.iFacturaRepository.buscarFacturaInnerJoinDemanda(subtotal);
+	}
+
+	@Override
 	public List<Factura> buscarFacturaInnerJoin() {
 		return this.iFacturaRepository.buscarFacturaInnerJoin();
 	}
@@ -38,6 +44,18 @@ public class FacturaServiceImpl implements IFacturaService {
 	@Override
 	public List<Factura> buscarFacturaOuterRightJoin(BigDecimal subtotal) {
 		return this.iFacturaRepository.buscarFacturaOuterRightJoin(subtotal);
+	}
+
+	@Override
+	public List<Factura> buscarFacturaWhereJoin(BigDecimal subtotal) {
+		// TODO Auto-generated method stub
+		return this.iFacturaRepository.buscarFacturaWhereJoin(subtotal);
+	}
+
+	@Override
+	public List<Factura> buscarFacturaJoinFetch(BigDecimal subtotal) {
+		// TODO Auto-generated method stub
+		return this.iFacturaRepository.buscarFacturaJoinFetch(subtotal);
 	}
 
 }

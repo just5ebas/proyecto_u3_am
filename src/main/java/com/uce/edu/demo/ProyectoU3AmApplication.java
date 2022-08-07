@@ -1,5 +1,6 @@
 package com.uce.edu.demo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -8,8 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.repository.modelo.Hotel;
-import com.uce.edu.demo.service.IHotelService;
+import com.uce.edu.demo.factura.repository.modelo.Factura;
+import com.uce.edu.demo.factura.service.IFacturaService;
 
 @SpringBootApplication
 public class ProyectoU3AmApplication implements CommandLineRunner {
@@ -17,7 +18,7 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 	private static final Logger LOG = Logger.getLogger(ProyectoU3AmApplication.class);
 
 	@Autowired
-	private IHotelService iHotelService;
+	private IFacturaService iFacturaService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoU3AmApplication.class, args);
@@ -25,28 +26,28 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		// Relacionamiento WHERE
 		LOG.info("Relacionamiento WHERE");
-		List<Hotel> listaWhere = this.iHotelService.buscarHotelWhereJoin("Familiar");
-		listaWhere.stream().forEach(h -> LOG.info("Hotel WHERE: " + h.getNombre()));
-		
+		List<Factura> listaWhere = this.iFacturaService.buscarFacturaWhereJoin(new BigDecimal(4));
+		listaWhere.stream().forEach(f -> LOG.info("Factura WHERE: " + f));
+
 		// INNER EAGER/LAZY
 		LOG.info("INNER JOIN EAGER/LAZY");
-		List<Hotel> listaHotel = this.iHotelService.buscarHotelInnerJoin("Familiar");
+		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoinDemanda(new BigDecimal(4));
 
-		listaHotel.stream().forEach(h -> {
-			LOG.info("Hotel: " + h.getNombre() + ", Direccion: " + h.getDireccion());
-			h.getHabitaciones().stream().forEach(ha -> LOG.info("Habitacion del hotel " + h.getNombre() + ": " + ha));
+		listaFactura.stream().forEach(f -> {
+			LOG.info("Factura: " + f);
+			f.getDetalles().stream().forEach(d -> LOG.info("Detalles Factura: " + d));
 		});
-		
+
 		// JOIN FETCH
 		LOG.info("JOIN FETCH");
-		List<Hotel> listaHotelFetch = this.iHotelService.buscarHotelJoinFetch("Familiar");
+		List<Factura> listaFacturaFetch = this.iFacturaService.buscarFacturaJoinFetch(new BigDecimal(4));
 
-		listaHotelFetch.stream().forEach(h -> {
-			LOG.info("Hotel FETCH: " + h.getNombre() + ", Direccion: " + h.getDireccion());
-			h.getHabitaciones().stream().forEach(ha -> LOG.info("Habitacion del hotel " + h.getNombre() + ": " + ha));
+		listaFacturaFetch.stream().forEach(f -> {
+			LOG.info("Factura FETCH: " + f);
+			f.getDetalles().stream().forEach(d -> LOG.info("Detalles Factura: " + d));
 		});
 
 	}

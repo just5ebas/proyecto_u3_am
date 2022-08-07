@@ -9,8 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,7 +33,7 @@ public class Factura {
 //	@JoinColumn(name = "fact_clie_id")
 //	private Cliente cliente;
 
-	@OneToMany(mappedBy = "factura", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "factura", fetch = FetchType.LAZY)
 	private List<DetalleFactura> detalles;
 
 	@Override
