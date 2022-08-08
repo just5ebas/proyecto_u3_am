@@ -27,28 +27,33 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// Relacionamiento WHERE
-		LOG.info("Relacionamiento WHERE");
-		List<Factura> listaWhere = this.iFacturaService.buscarFacturaWhereJoin(new BigDecimal(4));
-		listaWhere.stream().forEach(f -> LOG.info("Factura WHERE: " + f));
+		// INNER
+		LOG.info("INNER JOIN con condicion");
+		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoin(new BigDecimal(0.30));
 
-//		// INNER EAGER/LAZY
-//		LOG.info("INNER JOIN EAGER/LAZY");
-//		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoinDemanda(new BigDecimal(4));
-//
-//		listaFactura.stream().forEach(f -> {
-//			LOG.info("Factura: " + f);
-//			f.getDetalles().stream().forEach(d -> LOG.info("Detalles Factura: " + d));
-//		});
+		listaFactura.stream().forEach(f -> LOG.info("Factura 1: " + f));
 
-		// JOIN FETCH
-		LOG.info("JOIN FETCH");
-		List<Factura> listaFacturaFetch = this.iFacturaService.buscarFacturaJoinFetch(new BigDecimal(4));
+		LOG.info("INNER JOIN sin condicion");
+		List<Factura> listaFactura1 = this.iFacturaService.buscarFacturaInnerJoin();
 
-		listaFacturaFetch.stream().forEach(f -> {
-			LOG.info("Factura FETCH: " + f);
-			f.getDetalles().stream().forEach(d -> LOG.info("Detalles Factura: " + d));
-		});
+		listaFactura1.stream().forEach(f -> LOG.info("Factura 2: " + f));
+
+		// LEFT
+		LOG.info("LEFT JOIN con condicion");
+		List<Factura> listaFacturaLeft = this.iFacturaService.buscarFacturaOuterLeftJoin(new BigDecimal(0.30));
+
+		listaFacturaLeft.stream().forEach(f -> LOG.info("Factura 3: " + f));
+
+		LOG.info("LEFT JOIN sin condicion");
+		List<Factura> listaFacturaLeft1 = this.iFacturaService.buscarFacturaOuterLeftJoin();
+
+		listaFacturaLeft1.stream().forEach(f -> LOG.info("Factura 4: " + f));
+
+		// RIGHT
+		LOG.info("RIGHT JOIN con condicion");
+		List<Factura> listaFacturaRight = this.iFacturaService.buscarFacturaOuterRightJoin(new BigDecimal(0.30));
+
+		listaFacturaRight.stream().forEach(f -> LOG.info("Detalles Factura 5: " + f.getDetalles()));
 
 	}
 
