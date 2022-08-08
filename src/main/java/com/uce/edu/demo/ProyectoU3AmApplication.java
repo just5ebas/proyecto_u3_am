@@ -43,7 +43,7 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 
 		// JOIN FETCH
 		LOG.info("JOIN FETCH");
-		List<Factura> listaFacturaFetch = this.iFacturaService.buscarFacturaJoinFetch(new BigDecimal(4));
+		List<Factura> listaFacturaFetch = this.iFacturaService.buscarFacturaJoinFetch(new BigDecimal(3.5));
 
 		listaFacturaFetch.stream().forEach(f -> {
 			LOG.info("Factura FETCH: " + f);
