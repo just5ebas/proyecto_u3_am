@@ -32,18 +32,18 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 		List<Factura> listaWhere = this.iFacturaService.buscarFacturaWhereJoin(new BigDecimal(4));
 		listaWhere.stream().forEach(f -> LOG.info("Factura WHERE: " + f));
 
-		// INNER EAGER/LAZY
-		LOG.info("INNER JOIN EAGER/LAZY");
-		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoinDemanda(new BigDecimal(4));
-
-		listaFactura.stream().forEach(f -> {
-			LOG.info("Factura: " + f);
-			f.getDetalles().stream().forEach(d -> LOG.info("Detalles Factura: " + d));
-		});
+//		// INNER EAGER/LAZY
+//		LOG.info("INNER JOIN EAGER/LAZY");
+//		List<Factura> listaFactura = this.iFacturaService.buscarFacturaInnerJoinDemanda(new BigDecimal(4));
+//
+//		listaFactura.stream().forEach(f -> {
+//			LOG.info("Factura: " + f);
+//			f.getDetalles().stream().forEach(d -> LOG.info("Detalles Factura: " + d));
+//		});
 
 		// JOIN FETCH
 		LOG.info("JOIN FETCH");
-		List<Factura> listaFacturaFetch = this.iFacturaService.buscarFacturaJoinFetch(new BigDecimal(3.5));
+		List<Factura> listaFacturaFetch = this.iFacturaService.buscarFacturaJoinFetch(new BigDecimal(4));
 
 		listaFacturaFetch.stream().forEach(f -> {
 			LOG.info("Factura FETCH: " + f);
