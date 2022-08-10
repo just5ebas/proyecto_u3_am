@@ -11,7 +11,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.demo.factura.repository.modelo.Factura;
-import com.uce.edu.demo.repository.modelo.Hotel;
 
 @Repository
 @Transactional
@@ -33,7 +32,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		TypedQuery<Factura> myQuery = this.entityManager
 				.createQuery("SELECT f FROM Factura f JOIN f.detalles d WHERE d.subtotal > :subtotal", Factura.class);
 		myQuery.setParameter("subtotal", subtotal);
-		
+
 		List<Factura> lista = myQuery.getResultList();
 
 		lista.stream().forEach(f -> f.getDetalles().size());
