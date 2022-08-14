@@ -25,7 +25,7 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		this.iTransferenciaService.realizarTransferenciaFachada("1615143295", "1215164221", new BigDecimal(12));
+//		this.iTransferenciaService.realizarTransferenciaFachada("1615143295", "1215164221", new BigDecimal(12));
 
 	}
 

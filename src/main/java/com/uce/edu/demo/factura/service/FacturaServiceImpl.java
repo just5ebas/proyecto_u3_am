@@ -1,6 +1,7 @@
 package com.uce.edu.demo.factura.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,36 @@ public class FacturaServiceImpl implements IFacturaService {
 
 	@Autowired
 	private IFacturaRepository iFacturaRepository;
+
+	@Override
+	public void insertar(Factura factura) {
+		this.iFacturaRepository.insertar(factura);
+	}
+
+	@Override
+	public void actualizar(Factura factura) {
+		this.iFacturaRepository.actualizar(factura);
+	}
+
+	@Override
+	public void eliminar(Integer id) {
+		this.iFacturaRepository.eliminar(id);
+	}
+
+	@Override
+	public int actualizarFecha(LocalDateTime fecha) {
+		return this.iFacturaRepository.actualizarFecha(fecha);
+	}
+
+	@Override
+	public Factura buscar(Integer id) {
+		return this.iFacturaRepository.buscar(id);
+	}
+
+	@Override
+	public Factura buscarPorNumero(String numero) {
+		return this.iFacturaRepository.buscarPorNumero(numero);
+	}
 
 	@Override
 	public List<Factura> buscarFacturaInnerJoin(BigDecimal subtotal) {
