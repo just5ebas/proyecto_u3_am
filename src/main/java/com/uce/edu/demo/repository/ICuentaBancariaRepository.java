@@ -8,4 +8,6 @@ public interface ICuentaBancariaRepository {
 
 	public CuentaBancaria buscarPorNumero(String numero);
 
+	public void insertar(CuentaBancaria c);
+
 }

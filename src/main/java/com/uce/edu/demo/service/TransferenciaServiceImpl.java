@@ -58,8 +58,31 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	}
 
 	// Si ambos metodos tiene REQUIRED, ambos funcionan en una misma transaccion
-	
-	/* Si el metodo externo tiene REQUIRED y el interno REQUIRES_NEW, el interno
-	 * abre su propia transaccion a pesar de la que existe externamente. */
+
+	/*
+	 * Si el metodo externo tiene REQUIRED y el interno REQUIRES_NEW, el interno
+	 * abre su propia transaccion a pesar de la que existe externamente.
+	 */
+
+	@Override
+	@Transactional(value = TxType.REQUIRED)
+	public void realizarTransferenciaOtroBanco(String numeroOrigen, String numeroDestino, BigDecimal monto) {
+		// TODO Auto-generated method stub
+		CuentaBancaria ctaOrigen = this.iCuentaBancariaRepository.buscarPorNumero(numeroOrigen);
+		CuentaBancaria ctaDestino = this.iCuentaBancariaRepository.buscarPorNumero(numeroDestino);
+
+		ctaOrigen.setSaldo(ctaOrigen.getSaldo().subtract(monto).subtract(new BigDecimal(0.5)));
+		this.iCuentaBancariaRepository.actualizar(ctaOrigen);
+
+		ctaDestino.setSaldo(ctaDestino.getSaldo().add(monto).subtract(new BigDecimal(0.5)));
+		this.iCuentaBancariaRepository.actualizar(ctaDestino);
+
+		Transferencia trans = new Transferencia();
+		trans.setFecha(LocalDateTime.now());
+		trans.setMonto(monto);
+		trans.setCuentaOrigen(ctaOrigen);
+		trans.setCuentaDestino(ctaDestino);
+		this.iTransferenciaRepository.insertar(trans);
+	}
 
 }

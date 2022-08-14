@@ -8,4 +8,6 @@ public interface ITransferenciaService {
 
 	public void realizarTransferenciaFachada(String numeroCtaOrigen, String numeroCtaDestino, BigDecimal monto);
 
+	public void realizarTransferenciaOtroBanco(String numeroOrigen, String numeroDestino, BigDecimal monto);
+
 }

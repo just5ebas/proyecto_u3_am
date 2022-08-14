@@ -23,19 +23,27 @@ public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository {
 
 	@Override
 	@Transactional(value = TxType.MANDATORY)
-	public void actualizar(CuentaBancaria cuenta) {
-		this.entityManager.merge(cuenta);
+	public void actualizar(CuentaBancaria cuentaBancaria) {
+		// TODO Auto-generated method stub
+		this.entityManager.merge(cuentaBancaria);
 	}
 
 	@Override
 	@Transactional(value = TxType.NOT_SUPPORTED)
 	public CuentaBancaria buscarPorNumero(String numero) {
-		LOG.info("Transaccion activa: buscarPorNumero " + TransactionSynchronizationManager.isActualTransactionActive());
-
+		// TODO Auto-generated method stub
+		LOG.info("Transaccion activa:" + TransactionSynchronizationManager.isActualTransactionActive());
 		TypedQuery<CuentaBancaria> myQuery = this.entityManager
-				.createQuery("SELECT cb FROM CuentaBancaria cb WHERE cb.numero = :numeroCta", CuentaBancaria.class);
-		myQuery.setParameter("numeroCta", numero);
+				.createQuery("SELECT c FROM CuentaBancaria c WHERE c.numero =:numero", CuentaBancaria.class);
+		myQuery.setParameter("numero", numero);
 		return myQuery.getSingleResult();
+	}
+
+	@Override
+	@Transactional(value = TxType.MANDATORY)
+	public void insertar(CuentaBancaria c) {
+		// TODO Auto-generated method stub
+		this.entityManager.persist(c);
 	}
 
 }
