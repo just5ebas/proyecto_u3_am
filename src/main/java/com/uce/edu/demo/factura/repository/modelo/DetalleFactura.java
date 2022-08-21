@@ -32,9 +32,9 @@ public class DetalleFactura {
 	@JoinColumn(name = "deta_fact_id")
 	private Factura factura;
 
-//	@ManyToOne
-//	@JoinColumn(name = "deta_prod_id")
-//	private Producto producto;
+	@ManyToOne
+	@JoinColumn(name = "deta_prod_id")
+	private Producto producto;
 
 	@Override
 	public String toString() {
@@ -74,12 +74,12 @@ public class DetalleFactura {
 		this.factura = factura;
 	}
 
-//	public Producto getProducto() {
-//		return producto;
-//	}
-//
-//	public void setProducto(Producto producto) {
-//		this.producto = producto;
-//	}
+	public Producto getProducto() {
+		return producto;
+	}
+
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
 
 }

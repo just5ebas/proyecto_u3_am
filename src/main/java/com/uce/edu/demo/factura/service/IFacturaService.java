@@ -10,6 +10,8 @@ public interface IFacturaService {
 
 	public void insertar(Factura factura);
 
+	public void crearFactura(String numeroFactura, String cedulaCliente, String... codigoBarras);
+
 	public void actualizar(Factura factura);
 
 	public void eliminar(Integer id);
