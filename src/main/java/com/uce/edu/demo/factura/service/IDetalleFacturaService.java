@@ -1,5 +1,7 @@
 package com.uce.edu.demo.factura.service;
 
+import java.util.List;
+
 import com.uce.edu.demo.factura.repository.modelo.DetalleFactura;
 
 public interface IDetalleFacturaService {

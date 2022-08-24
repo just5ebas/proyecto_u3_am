@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.uce.edu.demo.factura.repository.modelo.DetalleFactura;
 import com.uce.edu.demo.factura.repository.modelo.Factura;
 
 public interface IFacturaService {
@@ -13,6 +14,8 @@ public interface IFacturaService {
 	public void crearFactura(String numeroFactura, String cedulaCliente, String... codigoBarras);
 
 	public void actualizar(Factura factura);
+
+	public List<DetalleFactura> actualizarStockInsertarDetalle(Factura f, String... codigoBarras);
 
 	public void eliminar(Integer id);
 

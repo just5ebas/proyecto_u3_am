@@ -55,11 +55,36 @@ public class FacturaServiceImpl implements IFacturaService {
 		f.setFecha(LocalDateTime.now());
 		f.setCliente(this.iClienteRepository.buscarPorCedula(cedulaCliente));
 
-		// Insertar la factura
+		// REQUIRES_NEW
+		List<DetalleFactura> detalles = this.actualizarStockInsertarDetalle(f, codigoBarras);
+		f.setDetalles(detalles);
+
+		this.actualizar(f);
+
+		// 3. Se crea la factura electronica
+		// Debido a que tiene la transaccion REQUIRES_NEW, si falla, la creacion de la
+		// factura no se vera afectada, mucho menos la actualizacion del stock del
+		// producto
+
+		this.iFacturaElectronicaService.crearFacturaSRI(f);
+
+//		try {
+//			this.iFacturaElectronicaService.crearFacturaSRI(f);
+//		} catch (Exception e) {
+//			LOG.error("ERROR con Factura Electronica");
+//		}
+
+	}
+
+	@Override
+	@Transactional(value = TxType.REQUIRES_NEW)
+	public List<DetalleFactura> actualizarStockInsertarDetalle(Factura f, String... codigoBarras) {
+		// TODO Auto-generated method stub
 		this.insertar(f);
 
 		// De los codigos ingresados, generar los detalles de la factura
 		List<DetalleFactura> detalles = new ArrayList<DetalleFactura>();
+
 		for (String codigoProducto : codigoBarras) {
 			// cantidad por defecto de cada detalle es 1
 			DetalleFactura detalle = new DetalleFactura();
@@ -83,24 +108,10 @@ public class FacturaServiceImpl implements IFacturaService {
 				LOG.error("Stock agotado del producto: " + producto.getNombre());
 				continue;
 			}
-
 		}
 
-		f.setDetalles(detalles);
-
-//		this.actualizar(f);
-
-		// 3. Se crea la factura electronica
-		// Debido a que tiene la transaccion REQUIRES_NEW, si falla, la creacion de la
-		// factura no se vera afectada, mucho menos la actualizacion del stock del
-		// producto
-		
-		try {
-			this.iFacturaElectronicaService.crearFacturaSRI(f);
-		} catch (Exception e) {
-			LOG.error("ERROR con Factura Electronica");
-		}
-
+		return detalles;
+		// Aqui podemos usar un cascade para insertar la factura y sus detalles
 	}
 
 	@Override

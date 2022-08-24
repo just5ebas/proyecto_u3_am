@@ -1,18 +1,12 @@
 package com.uce.edu.demo;
 
-import java.math.BigDecimal;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.factura.repository.modelo.Cliente;
-import com.uce.edu.demo.factura.repository.modelo.Producto;
-import com.uce.edu.demo.factura.service.IClienteService;
 import com.uce.edu.demo.factura.service.IFacturaService;
-import com.uce.edu.demo.factura.service.IProductoService;
 
 @SpringBootApplication
 public class ProyectoU3AmApplication implements CommandLineRunner {
@@ -58,7 +52,7 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 //		this.productoService.insertar(p1);
 //		this.productoService.insertar(p2);
 
-		this.facturaService.crearFactura("001-001-000000006", "1918171516", "0110011000", "0110011000", "0110011000");
+		this.facturaService.crearFactura("001-001-000000007", "1918171516", "0110011000", "0110011000", "0110011000");
 
 	}
 

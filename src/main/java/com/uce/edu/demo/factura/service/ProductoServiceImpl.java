@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.factura.repository.IProductoRepository;
+import com.uce.edu.demo.factura.repository.modelo.DetalleFactura;
 import com.uce.edu.demo.factura.repository.modelo.Producto;
 
 @Service
