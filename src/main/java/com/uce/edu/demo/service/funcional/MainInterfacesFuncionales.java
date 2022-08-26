@@ -1,7 +1,5 @@
 package com.uce.edu.demo.service.funcional;
 
-import java.util.function.Consumer;
-
 import org.apache.log4j.Logger;
 
 public class MainInterfacesFuncionales {
