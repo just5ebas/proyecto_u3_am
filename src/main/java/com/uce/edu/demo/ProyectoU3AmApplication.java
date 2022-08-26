@@ -6,7 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.demo.factura.service.IFacturaService;
+import com.uce.edu.demo.factura.service.IGestorFacturaService;
 
 @SpringBootApplication
 public class ProyectoU3AmApplication implements CommandLineRunner {
@@ -17,7 +17,7 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 //	private IClienteService iClienteService;
 
 	@Autowired
-	private IFacturaService facturaService;
+	private IGestorFacturaService gestorFacturaService;
 
 //	@Autowired
 //	private IProductoService productoService;
@@ -52,7 +52,8 @@ public class ProyectoU3AmApplication implements CommandLineRunner {
 //		this.productoService.insertar(p1);
 //		this.productoService.insertar(p2);
 
-		this.facturaService.crearFactura("001-001-000000007", "1918171516", "0110011000", "0110011000", "0110011000");
+		this.gestorFacturaService.insertarFactura("001-001-000000007", "1918171516", "0110011000", "0110011000",
+				"0110011000");
 
 	}
 

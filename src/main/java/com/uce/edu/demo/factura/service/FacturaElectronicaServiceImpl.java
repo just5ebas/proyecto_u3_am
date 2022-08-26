@@ -10,40 +10,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uce.edu.demo.factura.repository.IFacturaElectronicaRepository;
-import com.uce.edu.demo.factura.repository.modelo.DetalleFactura;
-import com.uce.edu.demo.factura.repository.modelo.Factura;
 import com.uce.edu.demo.factura.repository.modelo.FacturaElectronica;
+import com.uce.edu.demo.factura.repository.modelo.Producto;
 
 @Service
 public class FacturaElectronicaServiceImpl implements IFacturaElectronicaService {
 
 	@Autowired
 	private IFacturaElectronicaRepository iFacturaElectronicaRepository;
+	
+	@Autowired
+	private IProductoService iProductoService;
 
 	@Override
-	@Transactional(value = TxType.REQUIRES_NEW)
+	@Transactional(value = TxType.REQUIRED)
 	public void insertar(FacturaElectronica facturaElectronica) {
 		this.iFacturaElectronicaRepository.insertar(facturaElectronica);
 	}
 
 	@Override
 	@Transactional(value = TxType.REQUIRES_NEW)
-	public void crearFacturaSRI(Factura factura) {
-		
+	public void crearFacturaSRI(String numeroFactura, String cedulaCliente, String... codigoBarras) {
+
 		FacturaElectronica facturaElectronica = new FacturaElectronica();
-		facturaElectronica.setNumero(factura.getNumero());
+		facturaElectronica.setNumero(numeroFactura);
 		facturaElectronica.setFechaCreacion(LocalDateTime.now());
-		facturaElectronica.setNumeroDetalles(factura.getDetalles().size());
+		facturaElectronica.setNumeroDetalles(codigoBarras.length);
 
-		BigDecimal monto = new BigDecimal(0);
+		BigDecimal monto = BigDecimal.ZERO;
 
-		for (DetalleFactura detalle : factura.getDetalles())
-			monto = monto.add(detalle.getSubtotal());
-
+		for (String codProducto : codigoBarras) {
+			Producto p = this.iProductoService.buscarPorCodigoBarras(codProducto);
+			monto = monto.add(p.getPrecio());
+		}
 		facturaElectronica.setMonto(monto);
 
 		this.insertar(facturaElectronica);
-
 	}
 
 	@Override

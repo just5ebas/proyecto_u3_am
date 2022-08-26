@@ -1,13 +1,12 @@
 package com.uce.edu.demo.factura.service;
 
-import com.uce.edu.demo.factura.repository.modelo.Factura;
 import com.uce.edu.demo.factura.repository.modelo.FacturaElectronica;
 
 public interface IFacturaElectronicaService {
 
 	public void insertar(FacturaElectronica facturaElectronica);
 	
-	public void crearFacturaSRI(Factura factura);
+	public void crearFacturaSRI(String numeroFactura, String cedulaCliente, String... codigoBarras);
 
 	public void actualizar(FacturaElectronica facturaElectronica);
 
