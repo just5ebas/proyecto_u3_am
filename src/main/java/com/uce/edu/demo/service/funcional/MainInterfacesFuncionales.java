@@ -1,10 +1,25 @@
 package com.uce.edu.demo.service.funcional;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
 import org.apache.log4j.Logger;
 
 public class MainInterfacesFuncionales {
 
 	private static final Logger LOG = Logger.getLogger(MainInterfacesFuncionales.class);
+
+	public static boolean prueba(Integer numero) {
+		return numero >= 3;
+	}
+
+	public static void imprimir(String cadena) {
+		LOG.info("Impresión: " + cadena);
+	}
 
 	public static void main(String[] args) {
 
@@ -35,6 +50,11 @@ public class MainInterfacesFuncionales {
 		});
 		LOG.info("HO Supplier: " + valorHO1);
 
+		// JAVA
+		LOG.info("JAVA Supplier: ");
+		Stream<String> test = Stream.generate(() -> "Ariel M.").limit(2);
+		test.forEach(str -> System.out.println(str));
+
 		// --- CONSUMER ---
 		// Clases
 		IPersonaConsumer<String> consumer = new PersonaConsumerImpl();
@@ -47,6 +67,11 @@ public class MainInterfacesFuncionales {
 		// Metodos High Order
 		metodosHO.consumirConsumer(valor -> LOG.info("Metodos HO Consumer: " + valor), 2);
 
+		// JAVA
+		LOG.info("JAVA Consumer: ");
+		List<Integer> listaNumeros = Arrays.asList(1, 2, 3, 4, 5);
+		listaNumeros.forEach(numero -> LOG.info(numero));
+
 		// --- PREDICATE ---
 		// Lambdas
 		IPersonaPredicate<String> predicateLambda = cadena -> cadena.contains("d");
@@ -55,6 +80,11 @@ public class MainInterfacesFuncionales {
 		// Metodo HO
 		boolean respuesta = metodosHO.consumirPredicate(cadena -> cadena.contains("D"), "Buenos Días");
 		LOG.info("High Order Predicate: " + respuesta);
+
+		// JAVA
+		LOG.info("JAVA Predicate");
+		Stream<Integer> nuevaLista = listaNumeros.stream().filter(numero -> prueba(numero));
+		nuevaLista.forEach(numero -> System.out.println(numero));
 
 		// --- FUNCTION ---
 		// Lambdas
@@ -72,6 +102,20 @@ public class MainInterfacesFuncionales {
 		}, 1);
 		LOG.info("High Order Function: " + resp);
 
+		// JAVA
+		LOG.info("JAVA Function: ");
+		Stream<String> listaCambiada = listaNumeros.stream().map(numeroLista -> {
+			Integer valor = numeroLista + 1;
+			String cad = "Num: " + valor.toString();
+			return cad;
+		});
+		// Declarativa: ideas / intenciones
+		listaCambiada.forEach(valor -> imprimir(valor));
+
+		// Tipos de colecciones
+//		List<String> lista1 = new ArrayList<String>();
+//		Map<String, String> mapa1 = new HashMap<>();
+		
 		// --- UNARY OPERATOR (FUNCTION) ---
 		// Lambdas
 		IPersonaFunctionUnaryOperator<String> unaryLambda = cade -> {
